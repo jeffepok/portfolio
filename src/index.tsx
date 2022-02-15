@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {ApiUtils} from "./modules/http/api/rest";
+import {Connection} from "./modules/http/request";
+
+
+let connection = new Connection("http://localhost:8000",
+    {
+    'Authorization': 'Token f2f808d2c026a6c073dd91088b9a3f1925bdba1c'})
+
+new ApiUtils().callApi(connection, "/api/v1/items/category/", "GET").then(data =>{
+    console.log(data)
+})
 
 ReactDOM.render(
   <React.StrictMode>
