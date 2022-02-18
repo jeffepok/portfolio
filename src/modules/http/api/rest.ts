@@ -49,14 +49,14 @@ export class ModelApiUtils<T extends AbstractMDL<T>, D> extends ApiUtils<D> {
         this.objMDL = objMDL;
         this.customFieldMap = customFieldMap;
     }
-    _mapRemoteToResponse(data: any, message = ''): GenericRespDataC{
-        let results = data[HttpConstants.KEY_RESULTS] as Array<T>;
+    _mapRemoteToResponse(data: any, message = ''): GenericRespDataC<T>{
+        let results = data[HttpConstants.KEY_RESULTS] || [data] as Array<T>;
 
         return {
             isValid: GenericUtils.getDeepMap(data, 'is_valid',  true),
             message: GenericUtils.getDeepMap(data, 'resp_msg', message),
             content: this.getObjects(results),
-            rawBody: data
+            rawBody: data as T
         }
 
     }

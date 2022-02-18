@@ -45,7 +45,7 @@ export abstract class AbstractMDL<T>{
         return this.buildSingle(jsObj)
     }
 
-    abstract buildSingle(jsObj: Map<String, any>): T
+    abstract buildSingle(jsObj: T): T
 
     getList(jsObjMap: any): Array<T> {
         if (jsObjMap == null)

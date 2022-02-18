@@ -1,6 +1,6 @@
-import {MyAxios, MyAxiosException} from "./axios";
-import HttpConstants from "./constants";
-import {AxiosRequestHeaders} from "axios";
+import {MyAxios, MyAxiosException} from "./axios"
+import HttpConstants from "./constants"
+import {AxiosRequestHeaders} from "axios"
 
 const md5 = require('md5')
 
@@ -46,14 +46,14 @@ export class RequestTools<D=any, R=any> {
     trackRequestTimeKey?: string
 
     constructor(connection: Connection<D>, url: string, trackRequestTime=false, method?: string, headers?: AxiosRequestHeaders, params?: any, data?: D, trackRequestTimeKey?: string) {
-        this.connection = connection;
-        this.url = url;
-        this.method = method;
-        this.headers = headers;
-        this.params = params;
-        this.data = data;
-        this.trackRequestTime = trackRequestTime;
-        this.trackRequestTimeKey = trackRequestTimeKey;
+        this.connection = connection
+        this.url = url
+        this.method = method
+        this.headers = headers
+        this.params = params
+        this.data = data
+        this.trackRequestTime = trackRequestTime
+        this.trackRequestTimeKey = trackRequestTimeKey
     }
 
     getDefaultHeaders(): AxiosRequestHeaders {
@@ -65,52 +65,52 @@ export class RequestTools<D=any, R=any> {
     }
 
     getDefaultData(): D {
-        return this.connection.getExtraData();
+        return this.connection.getExtraData()
     }
 
     getAbsoluteUri(url: string): string{
         if (!url.startsWith("http"))
-            url = this.connection.getFullUrl(url);
-        return url;
+            url = this.connection.getFullUrl(url)
+        return url
     }
 
     getUrlKey(url: string): string{
-        return md5(url);
+        return md5(url)
     }
 
     async fetchData( url?: string, params?: Map<string,string>): Promise<R>  {
 
-    let fullUrl: string = this.getAbsoluteUri(url ?? this.url);
-    let combHeaders = this.getDefaultHeaders();
+    let fullUrl: string = this.getAbsoluteUri(url ?? this.url)
+    let combHeaders = this.getDefaultHeaders()
 
     combHeaders = { ...combHeaders, ...this.headers}
 
-    let combParams = this.getDefaultParams();
+    let combParams = this.getDefaultParams()
     if (params) {
         combParams = { ...combParams, ...params}
     }else{
         combParams = { ...combParams, ...this.params}
     }
-    let combData = this.getDefaultData();
+    let combData = this.getDefaultData()
     combData = { ...combData, ...this.data} as D
 
     if (this.trackRequestTime || (this.trackRequestTimeKey?.length ?? false)){
-        let key = this.trackRequestTimeKey ?? md5(fullUrl);
-        let lastReqTime = await this.getLastRequestTime(key);
+        let key = this.trackRequestTimeKey ?? md5(fullUrl)
+        let lastReqTime = await this.getLastRequestTime(key)
         combData = { ...combData, 'request': {'last_requested': lastReqTime}}
     }
 
     let myAxiosResp = await new MyAxios().execute(fullUrl,
-        this.method ?? HttpConstants.KEY_POST, combHeaders, combParams, combData);
+        this.method ?? HttpConstants.KEY_POST, combHeaders, combParams, combData)
 
     if (myAxiosResp.isValid) {
         try {
-            return myAxiosResp.response.data as R;
+            return myAxiosResp.response.data as R
         } catch (error) {
-            throw new MyAxiosException(HttpConstants.ERR_HTTP_INVALID_DATA);
+            throw new MyAxiosException(HttpConstants.ERR_HTTP_INVALID_DATA)
         }
     } else {
-        throw new MyAxiosException(myAxiosResp.friendlyError);
+        throw new MyAxiosException(myAxiosResp.friendlyError)
     }
 
 }
@@ -125,7 +125,7 @@ export class RequestTools<D=any, R=any> {
 
         localStorage.setItem(key, Date.now().toString())
 
-        return lastReqTime;
+        return lastReqTime
     }
 
 }

@@ -1,7 +1,7 @@
 
-export interface GenericRespDataC{
-    isValid: boolean
-    message: string
+export interface GenericRespDataC<R=any>{
+    isValid?: boolean
+    message?: string
     content?: any
-    rawBody?: any
+    rawBody: R
 }

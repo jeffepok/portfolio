@@ -1,4 +1,4 @@
-import {Axios, AxiosError, AxiosRequestConfig, AxiosRequestHeaders, Method} from "axios"
+import axios, {Axios, AxiosError, AxiosRequestConfig, AxiosRequestHeaders, Method} from "axios"
 import HttpConstants from "./constants"
 import {GenericUtils} from "../../utils/generic"
 
@@ -28,7 +28,8 @@ export class MyAxios<D> {
         let requestConfig: AxiosRequestConfig<D> = {
             url,
             params: params ?? {},
-            data: data ?? undefined
+            data: data ?? undefined,
+            transformRequest: axios.defaults.transformRequest
         }
         try {
             let req = axiosObj.request(requestConfig)
