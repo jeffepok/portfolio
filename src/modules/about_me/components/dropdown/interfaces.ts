@@ -1,9 +1,9 @@
-import {ReactNode, ReactPropTypes} from "react";
+import {ReactNode} from "react";
 
 export interface MenuItemProps{
     label: string,
     url?: string,
-    children?: ReactNode
+    children?: ReactNode,
+    className?: string
 }
-export interface DropdownProps {
-}
+
