@@ -1,7 +1,7 @@
 import React from 'react';
-import {MenuItem} from "../dropdown/menu_item";
+import MenuItem from "../menuItem/menu_item";
 
-export const Navbar = () => {
+const Navbar = () => {
     return (
         <nav
             className="relative items-center justify-between px-2 navbar-expand-lg bg-gray-200 mb-3">
@@ -13,3 +13,5 @@ export const Navbar = () => {
         </nav>
     )
 }
+
+export default Navbar

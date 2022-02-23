@@ -1,6 +1,6 @@
 import {ReactNode} from "react";
 
-export interface MenuItemProps{
+export interface IMenuItemProps{
     label: string,
     url?: string,
     children?: ReactNode,

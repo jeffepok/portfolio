@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {ChevronDownIcon} from "@heroicons/react/outline";
-import {MenuItemProps} from "./interfaces";
+import {IMenuItemProps} from "./interfaces";
 
-export const MenuItem = (props: MenuItemProps) => {
+const MenuItem = (props: IMenuItemProps) => {
     let [showMenu, setShowMenu] = useState(false)
 
     return (
@@ -45,3 +45,5 @@ export const MenuItem = (props: MenuItemProps) => {
         </div>
     )
 }
+
+export default MenuItem
