@@ -6,8 +6,11 @@ module.exports = {
 		extend: {
 			fontFamily: {
 				'cascadia-code': ['cascadia-code', 'sans']
-			}
+			},
+		},
+		container: {
+			center: true,
 		},
 	},
-	plugins: [],
+	plugins: []
 }

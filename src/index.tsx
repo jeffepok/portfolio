@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {ApiUtils, ModelApiUtils} from "./modules/http/api/rest";
-import {Connection} from "./modules/http/request";
-import {UserMDL} from "./modules/about_me/models/user";
-import {GenericRespDataC} from "./modules/http/interfaces/generic_response";
-
-let connection = new Connection("http://localhost:8000",
-    {}
-)
+// import {ApiUtils, ModelApiUtils} from "./modules/http/api/rest";
+// import {Connection} from "./modules/http/request";
+// import {UserMDL} from "./modules/about_me/models/user";
+// import {GenericRespDataC} from "./modules/http/interfaces/genericResponse";
+//
+// let connection = new Connection("http://localhost:8000",
+//     {}
+// )
 
 // new ApiUtils().callApi(connection, "/api/v1/user/login", "POST").then(data =>{
 //     console.log(data)

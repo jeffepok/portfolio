@@ -1,4 +1,4 @@
-import {GenericRespDataC} from "../interfaces/generic_response";
+import {GenericRespDataC} from "../interfaces/genericResponse";
 import {Connection, RequestTools} from "../request";
 import {AxiosRequestHeaders} from "axios";
 import {GenericUtils} from "../../../utils/generic";
