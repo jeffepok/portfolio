@@ -34,7 +34,7 @@ export class Connection<D> {
 }
 
 
-export class RequestTools<D=any, R=any> {
+export class RequestTools<D=any> {
 
     connection: Connection<D>
     url: string
@@ -78,7 +78,7 @@ export class RequestTools<D=any, R=any> {
         return md5(url)
     }
 
-    async fetchData( url?: string, params?: Map<string,string>): Promise<R>  {
+    async fetchData( url?: string, params?: Map<string,string>): Promise<any>  {
 
     let fullUrl: string = this.getAbsoluteUri(url ?? this.url)
     let combHeaders = this.getDefaultHeaders()
@@ -105,7 +105,7 @@ export class RequestTools<D=any, R=any> {
 
     if (myAxiosResp.isValid) {
         try {
-            return myAxiosResp.response.data as R
+            return JSON.parse(myAxiosResp.response.data)
         } catch (error) {
             throw new MyAxiosException(HttpConstants.ERR_HTTP_INVALID_DATA)
         }
