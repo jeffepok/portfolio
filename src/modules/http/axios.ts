@@ -1,6 +1,6 @@
 import axios, {Axios, AxiosError, AxiosRequestConfig, AxiosRequestHeaders, Method} from "axios"
 import HttpConstants from "./constants"
-import {GenericUtils} from "../../utils/generic"
+import {GenericUtils} from "./utils/generic"
 
 export class MyAxios<D> {
     timeout?: number = 10000
