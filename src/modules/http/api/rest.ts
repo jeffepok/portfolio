@@ -1,25 +1,27 @@
 import {GenericRespDataC} from "../interfaces/genericResponse";
 import {Connection, RequestTools} from "../request";
-import {AxiosRequestHeaders} from "axios";
-import {GenericUtils} from "../../../utils/generic";
+import {GenericUtils} from "../utils/generic";
 import {MyAxiosException} from "../axios";
 import {AbstractMDL} from "./models";
 import HttpConstants from "../constants";
+import { RequestConfig } from "../interfaces/requestConfig";
 
 export class ApiUtils<D> {
 
-    async callApi(connection: Connection<D>, apiUrl: string, method?: string, headers?: AxiosRequestHeaders,
-                  params?: Map<string, string>, postData?: D, successText?: string, errorText?: string,
-                  trackRequestTimeKey?: string): Promise<GenericRespDataC> {
+    async callApi(connection: Connection<D>, requestConfig: RequestConfig<D>): Promise<GenericRespDataC> {
+
+    let { url, method, headers, params, data, successText, errorText, trackRequestTimeKey } = requestConfig
+
     let _resp: GenericRespDataC;
 
     let _successText: string = successText ?? "Completed successfully";
 
     try {
 
-        let resp = await new RequestTools(connection, apiUrl, false, method, headers, params, postData, trackRequestTimeKey)
+        let resp = await new RequestTools(connection, url, false, method, headers, params, data, trackRequestTimeKey)
             .fetchData()
-        _resp = this._mapRemoteToResponse(JSON.parse(resp),  _successText);
+        _resp = this._mapRemoteToResponse(resp,  _successText);
+
     } catch (error) {
         let axiosException = error as MyAxiosException
         _resp = {isValid: false, message: errorText ?? axiosException.message}
@@ -50,29 +52,33 @@ export class ModelApiUtils<T extends AbstractMDL<T>, D> extends ApiUtils<D> {
         this.customFieldMap = customFieldMap;
     }
     _mapRemoteToResponse(data: any, message = ''): GenericRespDataC<T>{
-        let results = data[HttpConstants.KEY_RESULTS] || [data] as Array<T>;
+        let results = data[HttpConstants.KEY_RESULTS] || data as Array<T>;
 
         return {
-            isValid: GenericUtils.getDeepMap(data, 'is_valid',  true),
-            message: GenericUtils.getDeepMap(data, 'resp_msg', message),
-            content: this.getObjects(results),
+            isValid: GenericUtils.getDeepMap({results: data}, 'is_valid',  true),
+            message: GenericUtils.getDeepMap({results: data}, 'resp_msg', message),
+            content: Array.isArray(results) ? this.getObjects(results) : this.getObject(results, this.objMDL),
             rawBody: data as T
         }
 
     }
 
-     async fetchList(connection: Connection<D>, apiUrl: string, postData: D,
-        method?: string,
-        headers?: AxiosRequestHeaders,
-        params?: any,
-
+     async fetchList(connection: Connection<D>, requestConfig: RequestConfig<D>
     ): Promise<Array<T>>{
 
-        let response = await this.callApi(connection,apiUrl, method, headers, params, postData)
+        let response = await this.callApi(connection, requestConfig)
 
-        let results = response.rawBody[HttpConstants.KEY_RESULTS] as Array<any>
+        let results = response.rawBody as Array<any>
         return this.getObjects(results);
     }
+    async addObject(connection: Connection<D>, requestConfig: RequestConfig<D>
+        ): Promise<T>{
+    
+            let response = await this.callApi(connection, requestConfig)
+            let results = response.rawBody as D
+
+            return this.getObject(results, this.objMDL)
+        }
 
     getObjects(results: Array<any>): Array<T> {
 
