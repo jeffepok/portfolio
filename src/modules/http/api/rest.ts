@@ -73,7 +73,8 @@ export class ModelApiUtils<T extends AbstractMDL<T>, D> extends ApiUtils<D> {
     }
     async addObject(connection: Connection<D>, requestConfig: RequestConfig<D>
         ): Promise<T>{
-    
+            requestConfig.method = HttpConstants.KEY_POST
+            
             let response = await this.callApi(connection, requestConfig)
             let results = response.rawBody as D
 
