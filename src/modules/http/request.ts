@@ -100,7 +100,7 @@ export class RequestTools<D=any> {
         combData = { ...combData, 'request': {'last_requested': lastReqTime}}
     }
 
-    let myAxiosResp = await new MyAxios().execute(fullUrl,
+    let myAxiosResp = await new MyAxios<D>().execute(fullUrl,
         this.method ?? HttpConstants.KEY_POST, combHeaders, combParams, combData)
 
     if (myAxiosResp.isValid) {
