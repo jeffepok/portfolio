@@ -8,3 +8,16 @@ export class UserMDL extends AbstractMDL<UserMDL> {
         return obj
     }
 }
+
+export class PostMDL extends AbstractMDL<PostMDL> {
+    title: string = ''
+    author: string = ''
+
+    buildSingle(jsObj: PostMDL): PostMDL {
+        let obj: PostMDL = new PostMDL()
+        obj.id = jsObj.id
+        obj.author = jsObj.author
+        obj.title = jsObj.title
+        return obj
+    }
+}

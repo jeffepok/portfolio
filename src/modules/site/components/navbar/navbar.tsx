@@ -95,7 +95,7 @@ const Navbar = () => {
                 </div>
             </nav>
             <div className="text-white">
-                <Typist className="mt-5">
+                <Typist className="mt-5 text-gray-300">
                     <Typist.Delay ms={1000} />
                     JEFFERSON TUFFOUR
                 </Typist>
