@@ -1,21 +1,28 @@
-import ListCard from "../cards/listCard";
-import BoyImage from "../../../../assets/images/boy.png";
+import ListCard from "../cards/listCard"
+import BoyImage from "../../../../assets/images/boy.png"
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from 'swiper'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 // Import Swiper styles
-import "swiper/css";
-import "swiper/css/pagination";
-import "./styles.css";
+import 'swiper/css'
+import 'swiper/css/pagination'
+import "./styles.css"
 
 // import required modules
-import { Pagination } from "swiper";
+import { useState } from "react"
+import Slide from "../cards/slide"
 
 export default function About() {
+    // Create array with 1000 slides
+    const slides = Array.from({ length: 10 }).map(
+        (el, index) => `Slide ${index + 1}`
+    )
+
     const pagination = {
         clickable: true,
         renderBullet: function (index: number, className: string) {
-            return '<span class="' + className + '">' + (index + 1) + "</span>";
+            return '<span class="' + className + '"> </span>'
         },
     };
     return (
@@ -25,7 +32,7 @@ export default function About() {
                     <p className="text-4xl">Explore My Profile</p>
                     <p className="mt-2 text-green-400 text-xl">I live in Takoradi - Ghana and work for Amalitech</p>
                 </div>
-                <div className="mt-14 mb-16 grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="mt-14 mb-16 grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <ListCard title="Work Experience" />
                     <ListCard title="Achievements" />
                     <ListCard title="Education" />
@@ -48,24 +55,37 @@ export default function About() {
                     </div>
                 </div>
             </main>
-            <div className="grid pt-12 text-white bg-[#131d27] grid-cols-1 gap-4">
+            <div className="grid pt-12 text-white relative pb-28 bg-[#131d27] grid-cols-1 gap-4">
                 <p className="text-4xl">Projects I’ve worked on</p>
                 <p className="mt-2 text-green-400 text-xl">I live in Takoradi - Ghana and work for Amalitech</p>
-                <Swiper
-                    pagination={pagination}
-                    modules={[Pagination]}
-                    className="mySwiper"
-                >
-                    <SwiperSlide>Slide 1</SwiperSlide>
-                    <SwiperSlide>Slide 2</SwiperSlide>
-                    <SwiperSlide>Slide 3</SwiperSlide>
-                    <SwiperSlide>Slide 4</SwiperSlide>
-                    <SwiperSlide>Slide 5</SwiperSlide>
-                    <SwiperSlide>Slide 6</SwiperSlide>
-                    <SwiperSlide>Slide 7</SwiperSlide>
-                    <SwiperSlide>Slide 8</SwiperSlide>
-                    <SwiperSlide>Slide 9</SwiperSlide>
-                </Swiper>
+                <div className="lg:mx-32">
+                    <Swiper
+                        modules={[Pagination]}
+                        pagination={pagination}
+                        breakpoints={{
+                            // when window width is >= 320px
+                            320: {
+                                slidesPerView: 1
+                            },
+                            // when window width is >= 640px
+                            768: {
+                                slidesPerView: 3,
+                                spaceBetween: 20
+                            }
+                        }
+                        }
+                        onSwiper={(swiper) => console.log(swiper)}
+                        onSlideChange={() => console.log('slide change')}
+
+                    >
+                        {slides.map((slideContent, index) => (
+                            <SwiperSlide className="w-auto bg-transparent" key={index}>
+                                <Slide />
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                </div>
+
             </div>
 
 

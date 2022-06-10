@@ -8,6 +8,7 @@ import {
 } from "react-router-dom"
 import Home from './modules/site/components/home/home';
 import About from './modules/site/components/about/about';
+import Footer from './modules/site/components/footer';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/about" element={<About/>} />
                 </Routes>
             </Router>
+            <Footer/>
         </div>
     );
 }

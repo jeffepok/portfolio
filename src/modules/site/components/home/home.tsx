@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 
 const Home = () => {
-    return <main className="text-white h-screen container mx-auto px-16 xl:px-32 mt-28">
+    return <main className="text-white mb-20 container mx-auto px-16 xl:px-32 mt-28">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
             <div className="text-4xl text-left">
@@ -26,6 +26,7 @@ const Home = () => {
         </div>
         <div>
             Blog
+            <p className="mt-10">Coming soon...</p>
         </div>
     </div>
 </main>
