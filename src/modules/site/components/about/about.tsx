@@ -10,7 +10,6 @@ import 'swiper/css/pagination'
 import "./styles.css"
 
 // import required modules
-import { useState } from "react"
 import Slide from "../cards/slide"
 
 export default function About() {

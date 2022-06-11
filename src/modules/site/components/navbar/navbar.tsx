@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react'
-import MenuItem from "../menuItem/menuItem"
 import { Menu, Transition } from '@headlessui/react'
 import { BsChevronDown, BsHouseFill, BsGithub, BsTwitter, BsFacebook } from "react-icons/bs"
 import Typist from "react-typist"
